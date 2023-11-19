@@ -1,8 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import CollectionBox from "../components/CollectionBox";
-import { fetchCollections } from "../store/collections";
+
 
 const MyCollections = () => {
     const dispatch = useDispatch()
@@ -11,9 +10,6 @@ const MyCollections = () => {
     const myCollections = collections.filter(collection => collection.user_id == current_user_id)
     const loading = useSelector(state => state.collections.loading);
     const error = useSelector(state => state.collections.error);
-    useEffect(() => {
-        dispatch(fetchCollections());
-    }, [dispatch]);
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Something went wrong: {error}</p>;
 

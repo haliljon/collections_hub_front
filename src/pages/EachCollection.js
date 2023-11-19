@@ -1,24 +1,15 @@
 import { Link, useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { fetchItems } from '../store/items';
-import { fetchCollections } from '../store/collections';
+import { useSelector } from 'react-redux';
 import ItemCard from '../components/ItemCard';
 
 const EachCollection = () => {
     const { id } = useParams();
-    const dispatch = useDispatch()
     const collections = useSelector(state => state.collections.collections);
-    useEffect(() => {
-        dispatch(fetchCollections());
-    }, [dispatch]);
     const allItems = useSelector(state => state.items.items);
     const loadingItems = useSelector(state => state.items.loading);
     const errorItems = useSelector(state => state.items.error);
-    useEffect(() => {
-        dispatch(fetchItems());
-    }, [dispatch]);
 
+    const current_user_id = localStorage.getItem("id")
     const items = allItems.filter(item => item.collection_id == id);
     const collection = collections.find(collection => collection.id == id);
     console.log('collection', collection.id);
@@ -44,7 +35,9 @@ const EachCollection = () => {
             {items.map((item) => (
                 <ItemCard item={item} key={item.id} collection={collection} />)
             )}
-            <Link to={`/collection/${collection.id}/new_item`} className="btn btn-outline-success m-1 float-end">Add new item</Link>
+            <div className="col-10">
+                {current_user_id === collection.user_id && <Link to={`/collection/${collection.id}/new_item`} className="btn btn-outline-success float-end">Add new item</Link>}
+            </div>
         </div>
     );
 }

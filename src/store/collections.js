@@ -26,6 +26,9 @@ const collectionSlice = createSlice({
         addCollection: (state, action) => {
             state.collections.push(action.payload);
         },
+        deleteCollection: (state, action) => {
+            state.collections = state.collections.filter((collection) => collection.id !== action.payload);
+        }
     },
 });
 
@@ -93,9 +96,7 @@ export const deleteCollection = (collectionId) => async (dispatch) => {
             method: 'DELETE',
         });
         if (response.ok) {
-            dispatch(setCollections((prevState) => {
-                return prevState.collections.filter((collection) => collection.id !== collectionId);
-            }));
+            dispatch(deleteCollection(collectionId));
         } else {
             throw new Error('Failed to delete the collection');
         }

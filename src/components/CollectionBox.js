@@ -1,18 +1,13 @@
 import { Link } from "react-router-dom"
 import { deleteCollection } from "../store/collections"
 import { useDispatch, useSelector } from "react-redux"
-import { useEffect } from "react"
-import { fetchUsers } from "../store/users"
 
 const CollectionBox = ({ collection }) => {
     const dispatch = useDispatch()
-    // const users = useSelector(state => state.users.users);
-    const users = [{ id: 1, name: 'user1' }, { id: 2, name: 'user2' }]
+    const users = useSelector(state => state.users.users);
     const loading = useSelector(state => state.users.loading);
     const error = useSelector(state => state.users.error);
-    useEffect(() => {
-        dispatch(fetchUsers());
-    }, [dispatch]);
+
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Something went wrong: {error}</p>;
 
@@ -39,7 +34,7 @@ const CollectionBox = ({ collection }) => {
                 <div class="col-8 mt-4">
                     <div class="card text-center shadow mb-5 bg-white rounded">
                         <div class="card-header fst-italic">
-                            by {user ? (user.id == current_user ? "You" : user.name) : "Loading..."}
+                            by {(user.id == current_user ? "You" : user.username)}
                         </div>
                         <div class="card-body">
                             <img src={collection.image_url} height={75} width={100} alt="collection image" />

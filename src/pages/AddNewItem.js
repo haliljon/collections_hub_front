@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { addNewItem } from "../store/items";
 import { fetchCollections } from "../store/collections";
 
@@ -15,14 +15,12 @@ const AddItem = () => {
     const collections = useSelector(state => state.collections.collections);
     const loading = useSelector(state => state.collections.loading);
     const error = useSelector(state => state.collections.error);
-    useEffect(() => {
-        dispatch(fetchCollections());
-    }, [dispatch]);
+
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Something went wrong: {error}</p>;
 
     const collection = collections.find(collection => collection.id == id);
-
+    const current_user_id = localStorage.getItem("id")
 
     if (!collection) {
         return <p>Collection not found</p>; // or handle the error in your preferred way
@@ -86,6 +84,12 @@ const AddItem = () => {
         updatedTags.splice(index, 1);
         setTags(updatedTags);
     };
+
+    const isCreator = (current_user_id === collection.user_id);
+
+    if (!isCreator) {
+        return <p className="m-5 p-5 text-center"> You don't have permission to add items to this collection</p>;
+    }
 
     return (
         <div className="col-md col-sm-12 col-xs-12 container-main d-flex flex-row align-items-center login p-0 mt-5">

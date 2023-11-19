@@ -12,7 +12,13 @@ import MyCollections from "./pages/MyCollections";
 import EachCollection from "./pages/EachCollection";
 import AddItem from "./pages/AddNewItem";
 import AddCollection from "./pages/AddCollection";
+import { useDispatch } from "react-redux";
+import { fetchUsers } from "./store/users";
+import { fetchCollections } from "./store/collections";
+import { fetchItems } from "./store/items";
+import { fetchComments } from "./store/comments";
 function App() {
+  const dispatch = useDispatch()
   const navigate = useNavigate();
   const [loggedInStatus, setLoggedInStatus] = useState("NOT_LOGGED_IN")
   const [user, setUser] = useState({})
@@ -35,8 +41,19 @@ function App() {
   }
 
   useEffect(() => {
-    checkLoginStatus();
-  }, []);
+    const fetchData = async () => {
+      try {
+        dispatch(fetchUsers());
+        dispatch(fetchCollections())
+        dispatch(fetchItems())
+        dispatch(fetchComments())
+        checkLoginStatus();
+      } catch (error) {
+        console.log('Error fetching data', error);
+      }
+    }
+    fetchData();
+  }, [dispatch]);
 
   const handleLogout = () => {
     setLoggedInStatus("NOT_LOGGED_IN")
