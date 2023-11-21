@@ -1,25 +1,38 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BiLike } from "react-icons/bi";
 import { FaUserCircle } from "react-icons/fa";
 import { FaCommentDots } from "react-icons/fa";
 import { useDispatch, useSelector } from 'react-redux';
 import { addNewComment } from '../store/comments';
 import Comment from './Comment';
+import { addNewLike, deleteLike } from '../store/likes';
+
 const ItemCard = ({ item, collection }) => {
     const dispatch = useDispatch();
     const users = useSelector(state => state.users.users);
     const user = users.find(user => user.id == collection.user_id);
     const [toggle, setToggle] = useState(false);
+    const [liked, setLiked] = useState(false);
     const [commentText, setCommentText] = useState('');
     const allComments = useSelector(state => state.comments.comments)
     const comments = allComments.filter(comment => comment.item_id == item.id);
+
+    const allLikes = useSelector(state => state.likes.likes)
+    const likes = allLikes.filter(like => like.item_id == item.id)
+    const [likesCount, setLikesCount] = useState(likes.length)
+    const currentUserId = parseInt(localStorage.getItem('id'));
+    const currentUserLikes = likes.filter((like) => like.user_id === currentUserId)
+
+    useEffect(() => {
+        setLiked(currentUserLikes.length === 1)
+    }, [currentUserLikes])
 
     const handlePostComment = async () => {
         try {
             const newComment = {
                 content: commentText,
                 item_id: item.id,
-                user_id: parseInt(localStorage.getItem('id')),
+                user_id: currentUserId,
             };
             const addedComment = await dispatch(addNewComment(newComment));
             setCommentText('');
@@ -59,6 +72,32 @@ const ItemCard = ({ item, collection }) => {
     const handleToggle = () => {
         setToggle(!toggle);
     }
+    let likeColor;
+    liked ? likeColor = 'btn-success' : likeColor = 'btn-outline-success';
+    const handleLike = async () => {
+        try {
+            const newLike = {
+                item_id: item.id,
+                user_id: currentUserId
+            }
+            if (!liked) {
+                await dispatch(addNewLike(newLike))
+                setLikesCount(likesCount + 1)
+            } else {
+                const existingLike = currentUserLikes[0]
+                if (existingLike) {
+                    await dispatch(deleteLike(existingLike.id))
+                    setLikesCount(likesCount - 1)
+                }
+            }
+        } catch (error) {
+            console.log('Error handling like', error);
+        }
+    }
+
+
+
+
     return (
         <div className="card justify-items-center mx-auto m-3" style={{ width: '50vw' }}>
 
@@ -73,10 +112,15 @@ const ItemCard = ({ item, collection }) => {
 
                                         <FaUserCircle size={60} />
                                         <div className='ms-3'>
-                                            <h6 class="fw-bold text-success mb-1">{user.username}</h6>
-                                            <p class="text-muted small mb-0">
-                                                Shared publicly - {formatDate(item.created_at)}
-                                            </p>
+                                            {user && (
+                                                <>
+                                                    <h6 className="fw-bold text-success mb-1">{user.username}</h6>
+                                                    <p className="text-muted small mb-0">
+                                                        Shared publicly - {formatDate(item.created_at)}
+                                                    </p>
+                                                </>
+                                            )}
+
                                         </div>
                                     </div>
 
@@ -87,9 +131,10 @@ const ItemCard = ({ item, collection }) => {
                                         <li class="list-group-item">Collection Name | {collection.name}</li>
                                         {renderCustomKeyValuePairs(collection, item)}
                                     </ul>
+                                    {likesCount > 0 && <p className='text-muted'>{likesCount === 1 ? '1 like' : `${likesCount} likes`}</p>}
 
                                     <div class="small d-flex justify-content-start">
-                                        <button type='button' class="btn btn-outline-success d-flex align-items-center me-3" >
+                                        <button type='button' onClick={handleLike} class={`btn ${likeColor} d-flex align-items-center me-3`} >
                                             <i class="far fa-thumbs-up me-2"></i>
                                             <p class="mb-0"><BiLike /> Like</p>
                                         </button>
@@ -99,7 +144,7 @@ const ItemCard = ({ item, collection }) => {
                                         </button>
                                     </div>
                                 </div>
-                                {comments.map(comment => <Comment comment={comment} />)}
+                                {comments.map(comment => <Comment key={comment.id} comment={comment} />)}
                                 {toggle && <div class="card-footer py-3 border-0" style={{ backgroundColor: `#f8f9fa` }}>
                                     <div class="d-flex flex-start w-100">
                                         <FaUserCircle size={30} />

@@ -17,6 +17,7 @@ import { fetchUsers } from "./store/users";
 import { fetchCollections } from "./store/collections";
 import { fetchItems } from "./store/items";
 import { fetchComments } from "./store/comments";
+import { fetchLikes } from "./store/likes";
 function App() {
   const dispatch = useDispatch()
   const navigate = useNavigate();
@@ -47,6 +48,7 @@ function App() {
         dispatch(fetchCollections())
         dispatch(fetchItems())
         dispatch(fetchComments())
+        dispatch(fetchLikes())
         checkLoginStatus();
       } catch (error) {
         console.log('Error fetching data', error);

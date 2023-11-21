@@ -2,7 +2,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { addNewItem } from "../store/items";
-import { fetchCollections } from "../store/collections";
 
 const AddItem = () => {
     const { id } = useParams();
@@ -19,8 +18,8 @@ const AddItem = () => {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Something went wrong: {error}</p>;
 
-    const collection = collections.find(collection => collection.id == id);
-    const current_user_id = localStorage.getItem("id")
+    const collection = collections.find(collection => collection.id == parseInt(id));
+    const current_user_id = parseInt(localStorage.getItem('id'));
 
     if (!collection) {
         return <p>Collection not found</p>; // or handle the error in your preferred way

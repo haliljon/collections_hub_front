@@ -3,6 +3,7 @@ import collectionsReducer from "./collections";
 import usersReducer from "./users";
 import itemsReducer from "./items";
 import commentsReducer from "./comments";
+import likesReducer from './likes'
 
 const store = configureStore({
     reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
         users: usersReducer,
         items: itemsReducer,
         comments: commentsReducer,
+        likes: likesReducer
     },
 });
 

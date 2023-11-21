@@ -34,7 +34,6 @@ export const fetchUsers = () => async (dispatch) => {
         // Set loading state to true
         dispatch(setLoading(true));
 
-        console.log("fetchUsers");
         const response = await axios.get("http://localhost:3001/users");
         const data = await response.data;
 
@@ -44,7 +43,6 @@ export const fetchUsers = () => async (dispatch) => {
         console.log('fetchUsers error', error);
         dispatch(setError(error.message));
     } finally {
-        console.log('fetchUsers finally');
         dispatch(setLoading(false));
     }
 }

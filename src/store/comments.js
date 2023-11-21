@@ -24,6 +24,7 @@ const commentSlice = createSlice({
         addComment: (state, action) => {
             state.comments.push(action.payload);
         },
+
     },
 });
 

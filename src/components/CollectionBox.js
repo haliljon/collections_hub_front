@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
-import { deleteCollection } from "../store/collections"
 import { useDispatch, useSelector } from "react-redux"
+import { deleteCollection } from "../store/collections"
 
 const CollectionBox = ({ collection }) => {
     const dispatch = useDispatch()
@@ -11,10 +11,8 @@ const CollectionBox = ({ collection }) => {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Something went wrong: {error}</p>;
 
-    const current_user = localStorage.getItem('id')
+    const current_user = parseInt(localStorage.getItem('id'));
     const user = users.find(user => user.id === collection.user_id)
-
-    console.log('users:', users);
     const timeFormatter = (time) => {
         const date = new Date(time);
         return date.toLocaleString('en-US', {
@@ -22,12 +20,16 @@ const CollectionBox = ({ collection }) => {
         });
     };
 
-    const handleDelete = () => {
-        dispatch(deleteCollection(collection.id))
+    const handleDelete = async () => {
+        try {
+            if (collection) {
+                await dispatch(deleteCollection(collection.id))
+            }
+        } catch (err) {
+            console.log('Error deleting collection', err);
+        }
     }
 
-
-    console.log('current user', current_user);
     return (
         <div class='container'>
             <div class="row justify-content-md-center">
