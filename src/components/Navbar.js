@@ -17,7 +17,7 @@ const NavBar = ({ handleLogout }) => {
     const isLoggedin = isAuthenticated();
     const admin = isAdmin();
     const handleLogoutClick = () => {
-        axios.delete("http://localhost:3001/logout", { withCredentials: true }).then(response => {
+        axios.delete(`${API_BASE_URL}/logout`, { withCredentials: true }).then(response => {
             handleLogout();
             const darkThemePreference = localStorage.getItem("dark-theme");
             localStorage.clear();

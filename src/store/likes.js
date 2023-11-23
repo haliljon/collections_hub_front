@@ -1,6 +1,7 @@
 // likes.js
 
 import { createSlice } from '@reduxjs/toolkit';
+import { API_ENDPOINTS } from '../components/api';
 
 // Initial state
 const initialState = {
@@ -41,7 +42,7 @@ export const fetchLikes = () => async (dispatch) => {
         dispatch(setLoading(true));
 
         // Fetch data from the backend for likes
-        const response = await fetch('http://localhost:3001/likes');
+        const response = await fetch(API_ENDPOINTS.LIKES);
         const data = await response.json();
 
         dispatch(setLikes(data));
@@ -57,7 +58,7 @@ export const addNewLike = (newLike) => async (dispatch) => {
     try {
         dispatch(setLoading(true));
 
-        const response = await fetch('http://localhost:3001/likes', {
+        const response = await fetch(API_ENDPOINTS.LIKES, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -83,7 +84,7 @@ export const deleteLike = (likeId) => async (dispatch) => {
     try {
         dispatch(setLoading(true));
 
-        const response = await fetch(`http://localhost:3001/likes/${likeId}`, {
+        const response = await fetch(`${API_ENDPOINTS.LIKES}/${likeId}`, {
             method: 'DELETE',
         });
 

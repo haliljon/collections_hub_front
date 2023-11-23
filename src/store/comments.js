@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import Comment from "../components/Comment";
+import { API_ENDPOINTS } from "../components/api";
 
 // Initial state
 const initialState = {
@@ -42,7 +43,7 @@ export const fetchComments = () => async (dispatch) => {
         dispatch(setLoading(true));
 
         // Fetch data from the backend
-        const response = await fetch("http://localhost:3001/comments");
+        const response = await fetch(API_ENDPOINTS.COMMENTS);
         const data = await response.json();
 
         // Set comments data
@@ -63,7 +64,7 @@ export const addNewComment = (newComment) => async (dispatch) => {
         dispatch(setLoading(true));
 
         // Send post request to backend
-        const response = await fetch("http://localhost:3001/comments", {
+        const response = await fetch(API_ENDPOINTS.COMMENTS, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -87,7 +88,7 @@ export const addNewComment = (newComment) => async (dispatch) => {
 export const deleteComment = (commentId) => async (dispatch) => {
     try {
         dispatch(setLoading(true))
-        const response = await fetch(`http://localhost:3001/comments/${commentId}`, {
+        const response = await fetch(`${API_ENDPOINTS.COMMENTS}/${commentId}`, {
             method: 'DELETE',
         });
         if (response.ok) {

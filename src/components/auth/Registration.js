@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { API_BASE_URL } from "../api";
 
 export default class Registration extends React.Component {
     constructor(props) {
@@ -16,7 +17,7 @@ export default class Registration extends React.Component {
     }
     handleSubmit(event) {
         const { email, username, password, password_confirmation } = this.state;
-        axios.post("http://localhost:3001/registrations", {
+        axios.post(`${API_BASE_URL}/registrations`, {
             user: {
                 email,
                 username,

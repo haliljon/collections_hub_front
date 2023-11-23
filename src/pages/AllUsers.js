@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchUsers } from '../store/users';
 import { useDarkMode } from '../components/DarkModeContext';
 import { useLanguageRussian } from '../components/LanguageRussianContext';
+import { API_ENDPOINTS } from '../components/api';
 
 const AllUsers = () => {
     const { isDarkMode } = useDarkMode()
@@ -38,7 +39,7 @@ const AllUsers = () => {
 
     const handleBlock = () => {
         const promises = selectedUsers.map((user) => {
-            const url = `http://localhost:3001/users/${user}`;
+            const url = `${API_ENDPOINTS.USERS}/${user}`;
             const data = { user: { status: 'blocked' } };
 
             return fetch(url, {
@@ -63,7 +64,7 @@ const AllUsers = () => {
 
     const handleUnblock = () => {
         const promises = selectedUsers.map((user) => {
-            const url = `http://localhost:3001/users/${user}`;
+            const url = `${API_ENDPOINTS.USERS}/${user}`;
             const data = { user: { status: 'active' } };
 
             return fetch(url, {
@@ -87,7 +88,7 @@ const AllUsers = () => {
 
 
     const handleDelete = () => {
-        const promises = selectedUsers.map((user) => axios.delete(`http://localhost:3001/users/${user}`));
+        const promises = selectedUsers.map((user) => axios.delete(`${API_ENDPOINTS.USERS}/${user}`));
 
         Promise.all(promises)
             .then((responses) => {
@@ -101,7 +102,7 @@ const AllUsers = () => {
 
     const handleMakeAdmin = () => {
         const promises = selectedUsers.map((user) => {
-            const url = `http://localhost:3001/users/${user}`;
+            const url = `${API_ENDPOINTS.USERS}/${user}`;
             const data = { user: { role: 'admin' } };
 
             return fetch(url, {
@@ -125,7 +126,7 @@ const AllUsers = () => {
 
     const handleMakeUser = () => {
         const promises = selectedUsers.map((user) => {
-            const url = `http://localhost:3001/users/${user}`;
+            const url = `${API_ENDPOINTS.USERS}/${user}`;
             const data = { user: { role: 'user' } };
 
             return fetch(url, {

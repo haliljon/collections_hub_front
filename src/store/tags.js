@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { API_ENDPOINTS } from '../components/api';
 
 const initialState = {
     tags: [],
@@ -30,7 +31,7 @@ export const { setLoading, setError, setTags, addTag } = tagSlice.actions;
 export const fetchTags = () => async (dispatch) => {
     try {
         dispatch(setLoading(true));
-        const response = await fetch('http://localhost:3001/tags');
+        const response = await fetch(API_ENDPOINTS.TAGS);
         const data = await response.json();
 
         dispatch(setTags(data));
@@ -45,7 +46,7 @@ export const addNewTag = (newTag) => async (dispatch) => {
     try {
         dispatch(setLoading(true));
 
-        const response = await fetch('http://localhost:3001/tags', {
+        const response = await fetch(API_ENDPOINTS.TAGS, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

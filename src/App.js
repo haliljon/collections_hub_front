@@ -20,6 +20,7 @@ import PrivateRoute from "./PrivateRoute";
 import { fetchTags } from "./store/tags";
 import SearchResult from "./pages/SearchResult";
 import NavBar from "./components/NavBar";
+import { API_BASE_URL } from "./components/api";
 
 function App() {
   const dispatch = useDispatch()
@@ -31,7 +32,7 @@ function App() {
     setUser(data.user)
   }
   const checkLoginStatus = () => {
-    axios.get("http://localhost:3001/logged_in", { withCredentials: true }).then(response => {
+    axios.get(`${API_BASE_URL}/logged_in`, { withCredentials: true }).then(response => {
       if (response.data.logged_in && loggedInStatus === "NOT_LOGGED_IN") {
         setLoggedInStatus("LOGGED_IN")
         setUser(response.data.user)

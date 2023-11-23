@@ -1,6 +1,7 @@
 // collections.js
 
 import { createSlice } from '@reduxjs/toolkit';
+import { API_ENDPOINTS } from '../components/api';
 
 // Initial state
 const initialState = {
@@ -42,7 +43,7 @@ export const fetchCollections = () => async (dispatch) => {
         dispatch(setLoading(true));
 
         // Fetch data from the backend
-        const response = await fetch('http://localhost:3001/collections');
+        const response = await fetch(API_ENDPOINTS.COLLECTIONS);
         const data = await response.json();
 
         // Set collections data
@@ -63,7 +64,7 @@ export const addNewCollection = (newCollection) => async (dispatch) => {
         dispatch(setLoading(true));
 
         // Assuming you have an API endpoint for adding new collections
-        const response = await fetch('http://localhost:3001/collections', {
+        const response = await fetch(API_ENDPOINTS.COLLECTIONS, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -92,7 +93,7 @@ export const addNewCollection = (newCollection) => async (dispatch) => {
 export const deleteCollection = (collectionId) => async (dispatch) => {
     try {
         dispatch(setLoading(true));
-        const response = await fetch(`http://localhost:3001/collections/${collectionId}`, {
+        const response = await fetch(`${API_ENDPOINTS.COLLECTIONS}/${collectionId}`, {
             method: 'DELETE',
         });
         if (response.ok) {

@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { API_ENDPOINTS } from "../components/api";
 
 // Initial state
 const initialState = {
@@ -40,7 +41,7 @@ export const fetchItems = () => async (dispatch) => {
         dispatch(setLoading(true));
 
         // Fetch data from the backend
-        const response = await fetch("http://localhost:3001/items");
+        const response = await fetch(API_ENDPOINTS.ITEMS);
         const data = await response.json();
 
         // Set items data
@@ -61,7 +62,7 @@ export const addNewItem = (newItem) => async (dispatch) => {
         dispatch(setLoading(true));
 
         // Send post request to backend
-        const response = await fetch("http://localhost:3001/items", {
+        const response = await fetch(API_ENDPOINTS.ITEMS, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -85,7 +86,7 @@ export const addNewItem = (newItem) => async (dispatch) => {
 export const deleteItem = (ItemId) => async (dispatch) => {
     try {
         dispatch(setLoading(true));
-        const response = await fetch(`http://localhost:3001/items/${ItemId}`, {
+        const response = await fetch(`${API_ENDPOINTS.ITEMS}/${ItemId}`, {
             method: 'DELETE',
         });
         if (response.ok) {

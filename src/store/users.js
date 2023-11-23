@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { API_ENDPOINTS } from "../components/api";
 
 // Initial state
 const initialState = {
@@ -34,7 +35,7 @@ export const fetchUsers = () => async (dispatch) => {
         // Set loading state to true
         dispatch(setLoading(true));
 
-        const response = await axios.get("http://localhost:3001/users");
+        const response = await axios.get(API_ENDPOINTS.USERS);
         const data = await response.data;
 
         // Set users data
