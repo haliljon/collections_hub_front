@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { DarkModeProvider } from './components/DarkModeContext';
 import { LanguaugeRussianProvider } from './components/LanguageRussianContext';
-import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 import App from './App';
 import store from './store/store';
@@ -16,7 +16,7 @@ root.render(
       <LanguaugeRussianProvider>
         <Provider store={store}>
           <App />
-        </ Provider>
+        </Provider>
       </LanguaugeRussianProvider>
     </DarkModeProvider>
   </BrowserRouter>,
