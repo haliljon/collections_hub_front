@@ -18,8 +18,8 @@ import { fetchLikes } from './store/likes';
 import AdminRoute from './AdminRoute';
 import PrivateRoute from './PrivateRoute';
 import { fetchTags } from './store/tags';
-import SearchResult from './pages/SearchResult';
-import NavigationBar from './components/NavBar';
+import SearchResult from './pages/searchResult';
+import NavigationBar from './components/NavigationBar';
 import { API_BASE_URL } from './components/api';
 
 function App() {
