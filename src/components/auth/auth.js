@@ -1,6 +1,9 @@
 const isAuthenticated = () => {
     const password = localStorage.getItem('password_digest');
-    return password !== null;
+    if (password !== null) {
+        return true;
+    }
+    return false;
 }
 
 export default isAuthenticated;

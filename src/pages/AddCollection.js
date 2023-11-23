@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { addNewCollection } from '../store/collections';
+import { useDarkMode } from '../components/DarkModeContext';
 
 const AddCollection = () => {
+    const { isDarkMode } = useDarkMode()
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [collection, setCollection] = useState({
@@ -147,7 +149,7 @@ const AddCollection = () => {
                                     <option value="date">Date</option>
                                     <option value="integer">Integer</option>
                                 </select>
-                                <button type="button" className="btn btn-outline-success mt-2 float-end w-100" onClick={addCustomField}>
+                                <button type="button" className={`btn btn-${isDarkMode ? '' : 'outline-'}success mt-2 float-end w-100`} onClick={addCustomField}>
                                     Add Custom Field
                                 </button>
                             </div>

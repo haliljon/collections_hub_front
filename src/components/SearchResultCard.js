@@ -12,23 +12,33 @@ import { deleteItem } from '../store/items';
 import isAdmin from './auth/isAdmin';
 import { useDarkMode } from './DarkModeContext';
 
-const ItemCard = ({ item, collection }) => {
+const SearchResultCard = ({ item }) => {
     const { isDarkMode } = useDarkMode()
     const dispatch = useDispatch();
     const users = useSelector(state => state.users.users);
-    const user = users.find(user => user.id == collection.user_id);
+    const allCollections = useSelector(state => state.collections.collections);
+    const currentUserId = parseInt(localStorage.getItem('id'));
+    const allLikes = useSelector(state => state.likes.likes);
+    const allComments = useSelector(state => state.comments.comments);
+
     const [toggle, setToggle] = useState(false);
     const [liked, setLiked] = useState(false);
     const [commentText, setCommentText] = useState('');
-    const allComments = useSelector(state => state.comments.comments)
-    const comments = allComments.filter(comment => comment.item_id == item.id);
 
-    const allLikes = useSelector(state => state.likes.likes)
-    const likes = allLikes.filter(like => like.item_id == item.id)
-    const [likesCount, setLikesCount] = useState(likes.length)
-    const currentUserId = parseInt(localStorage.getItem('id'));
-    const currentUserLikes = likes.filter((like) => like.user_id === currentUserId)
-    const logged_in = isAuthenticated()
+    // Get the collection for the current item
+    const collection = allCollections.find(collection => collection.id === item.collection_id);
+
+    // Find the user based on the collection's user_id
+    const user = users.find(user => user.id === collection?.user_id);
+
+    // Filter likes and comments for the current item
+    const likes = allLikes.filter(like => like.item_id === item.id);
+    const comments = allComments.filter(comment => comment.item_id === item.id);
+    const currentUserLikes = likes.filter(like => like.user_id === currentUserId);
+
+    const [likesCount, setLikesCount] = useState(likes.length);
+    const logged_in = isAuthenticated();
+
 
     useEffect(() => {
         setLiked(currentUserLikes.length === 1)
@@ -144,6 +154,7 @@ const ItemCard = ({ item, collection }) => {
 
                                     <div class="small d-flex justify-content-start">
                                         <button disabled={!logged_in} type='button' onClick={handleLike} class={`btn ${likeColor} d-flex align-items-center me-3`} >
+                                            <i class="far fa-thumbs-up me-2"></i>
                                             <p class="mb-0"><BiLike /> Like</p>
                                         </button>
                                         <button type='button' disabled={!logged_in} onClick={handleToggle} class={`btn btn-${isDarkMode ? '' : 'outline-'}success  d-flex align-items-center me-3`}>
@@ -162,7 +173,7 @@ const ItemCard = ({ item, collection }) => {
                                     <div class="d-flex flex-start w-100">
                                         <FaUserCircle size={30} className={`${isDarkMode ? 'text-white' : ''}`} />
                                         <div class="form-outline w-100 ms-2">
-                                            <textarea class={`form-control ${isDarkMode ? 'bg-dark' : ''}`} placeholder='Enter your comment' id="textAreaExample" rows="4" value={commentText} onChange={(e) => setCommentText(e.target.value)}
+                                            <textarea class={`form-control ${isDarkMode ? 'bg-dark' : ''}`} id="textAreaExample" rows="4" value={commentText} onChange={(e) => setCommentText(e.target.value)}
                                                 style={{ background: '#fff' }}></textarea>
                                             <label class={`form-label ${isDarkMode ? 'text-white' : ''}`} for="textAreaExample">Message</label>
                                         </div>
@@ -175,11 +186,11 @@ const ItemCard = ({ item, collection }) => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div >
             </section >
 
         </div >
     )
 }
 
-export default ItemCard;
+export default SearchResultCard;

@@ -24,11 +24,14 @@ const itemSlice = createSlice({
         addItem: (state, action) => {
             state.items.push(action.payload);
         },
+        removeItem: (state, action) => {
+            state.items = state.items.filter((item) => item.id !== action.payload);
+        }
     },
 });
 
 // Export actions
-export const { setLoading, setError, setItems, addItem } = itemSlice.actions;
+export const { setLoading, setError, setItems, addItem, removeItem } = itemSlice.actions;
 
 // Async action to fetch items from the backend
 export const fetchItems = () => async (dispatch) => {
@@ -69,6 +72,7 @@ export const addNewItem = (newItem) => async (dispatch) => {
 
         // Add new item to redux store
         dispatch(addItem(data));
+        return data;
     } catch (error) {
         // Set error state if there's an error
         dispatch(setError(error.message));
@@ -77,6 +81,24 @@ export const addNewItem = (newItem) => async (dispatch) => {
         dispatch(setLoading(false));
     }
 };
+
+export const deleteItem = (ItemId) => async (dispatch) => {
+    try {
+        dispatch(setLoading(true));
+        const response = await fetch(`http://localhost:3001/items/${ItemId}`, {
+            method: 'DELETE',
+        });
+        if (response.ok) {
+            dispatch(removeItem(ItemId))
+        } else {
+            throw new Error('Failed to delete the item')
+        }
+    } catch (error) {
+        dispatch(setError(error.message))
+    } finally {
+        dispatch(setLoading(false))
+    }
+}
 
 // Export reducer
 export default itemSlice.reducer;

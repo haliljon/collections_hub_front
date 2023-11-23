@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import Comment from "../components/Comment";
 
 // Initial state
 const initialState = {
@@ -24,12 +25,15 @@ const commentSlice = createSlice({
         addComment: (state, action) => {
             state.comments.push(action.payload);
         },
+        removeComment: (state, action) => {
+            state.comments = state.comments.filter((comment) => comment.id !== action.payload);
+        }
 
     },
 });
 
 // Export actions
-export const { setLoading, setError, setComments, addComment } = commentSlice.actions;
+export const { setLoading, setError, setComments, addComment, removeComment } = commentSlice.actions;
 
 // Async action to fetch comments from the backend
 export const fetchComments = () => async (dispatch) => {
@@ -80,5 +84,22 @@ export const addNewComment = (newComment) => async (dispatch) => {
     }
 };
 
+export const deleteComment = (commentId) => async (dispatch) => {
+    try {
+        dispatch(setLoading(true))
+        const response = await fetch(`http://localhost:3001/comments/${commentId}`, {
+            method: 'DELETE',
+        });
+        if (response.ok) {
+            dispatch(removeComment(commentId))
+        } else {
+            throw new Error('Failed to delete comment')
+        }
+    } catch (error) {
+        dispatch(setError(error.message))
+    } finally {
+        dispatch(setLoading(false))
+    }
+}
 // Export reducer
 export default commentSlice.reducer;

@@ -1,27 +1,50 @@
 import { FaUserCircle } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { RiChatDeleteFill } from "react-icons/ri";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteComment } from "../store/comments";
+import isAdmin from "./auth/isAdmin";
+import { useDarkMode } from "./DarkModeContext";
+
 const Comment = ({ comment }) => {
+    const { isDarkMode } = useDarkMode()
+    const dispatch = useDispatch();
     const users = useSelector(state => state.users.users);
     const user = users.find(user => user.id == comment.user_id);
-
+    const current_user_id = parseInt(localStorage.getItem('id'))
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         return date.toLocaleDateString('en-US');
     }
+
+    const handleDeleteComment = async () => {
+        try {
+            if (comment) {
+                await dispatch(deleteComment(comment.id))
+            }
+        } catch (err) {
+            console.log('Error deleting comment', err);
+        }
+    }
     return (
         <><div class="card-body p-4">
-            <div class="d-flex flex-start">
-                <FaUserCircle size={30} />
-                <div className="ms-2">
-                    <h6 class="fw-bold mb-1 text-success">{user.username}</h6>
-                    <div class="d-flex align-items-center mb-3">
-                        <p class="mb-0">
-                            {formatDate(comment.created_at)}
-                        </p>
+            <div class="d-flex justify-content-between">
+                <div className="d-flex flex-grow-1">
+                    <FaUserCircle size={30} className={`${isDarkMode ? 'text-white' : ''}`} />
+                    <div className="ms-2">
+                        <h6 class={`fw-bold mb-1 text-${isDarkMode ? 'white' : 'success'}`}>{user.username}</h6>
+                        <div class="d-flex align-items-center mb-3">
+                            <p class={`mb-0 ${isDarkMode ? 'text-white' : ''}`}>
+                                {formatDate(comment.created_at)}
+                            </p>
+                        </div>
+                        <p class={`mb-0 ${isDarkMode ? 'text-white' : ''}`}>{comment.content}</p>
                     </div>
-                    <p class="mb-0">{comment.content}
-                    </p>
                 </div>
+                {(user.id === current_user_id || isAdmin()) &&
+                    <button type='button' class={`btn btn-${isDarkMode ? '' : 'outline-'}success align-items-center`} onClick={handleDeleteComment} style={{ height: '40px' }}>
+                        <p class="m-0"><RiChatDeleteFill size={20} /> Delete</p>
+                    </button>}
+
             </div>
         </div>
 

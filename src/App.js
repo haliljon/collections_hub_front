@@ -2,9 +2,7 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Home from "./pages/Home";
-import Dashboard from "./components/Dashboard";
 import Navbar from "./components/Navbar";
-import { current } from "@reduxjs/toolkit";
 import Login from "./components/auth/Login";
 import Registration from "./components/auth/Registration";
 import AllUsers from "./pages/AllUsers";
@@ -18,6 +16,11 @@ import { fetchCollections } from "./store/collections";
 import { fetchItems } from "./store/items";
 import { fetchComments } from "./store/comments";
 import { fetchLikes } from "./store/likes";
+import AdminRoute from "./AdminRoute";
+import PrivateRoute from "./PrivateRoute";
+import { fetchTags } from "./store/tags";
+import SearchResult from "./pages/SearchResult";
+
 function App() {
   const dispatch = useDispatch()
   const navigate = useNavigate();
@@ -49,6 +52,7 @@ function App() {
         dispatch(fetchItems())
         dispatch(fetchComments())
         dispatch(fetchLikes())
+        dispatch(fetchTags())
         checkLoginStatus();
       } catch (error) {
         console.log('Error fetching data', error);
@@ -67,18 +71,26 @@ function App() {
     navigate('/');
   }
   return (
-    <div className="App">
+    <div>
       <Navbar handleLogout={handleLogout} />
       <Routes>
-        <Route path="/" element={<Home loggedInStatus={loggedInStatus} handleLogin={handleLogin} />} />
+        <Route path="/" element={<Home handleLogin={handleLogin} />} />
         <Route path="/signin" element={<Login handleSuccessfulAuth={handleSuccessfulAuth} />} />
         <Route path="/signup" element={<Registration handleSuccessfulAuth={handleSuccessfulAuth} />} />
-        <Route path="/dashboard" element={<Dashboard loggedInStatus={loggedInStatus} />} />
-        <Route path="/all_users" element={<AllUsers />} />
-        <Route path="/my_collections" element={<MyCollections />} />
+        <Route exact path="/all_users" element={<AdminRoute />}>
+          <Route path="/all_users" element={<AllUsers />} />
+        </Route>
+        <Route exact path="/my_collections" element={<PrivateRoute />}>
+          <Route path="/my_collections" element={<MyCollections />} />
+        </Route>
         <Route path="/collection/:id" element={<EachCollection />} />
-        <Route path="/collection/:id/new_item" element={<AddItem />} />
-        <Route path="/new_collection" element={<AddCollection />} />
+        <Route exact path="/collection/:id/new_item" element={<PrivateRoute />}>
+          <Route path="/collection/:id/new_item" element={<AddItem />} />
+        </Route>
+        <Route exact path="/new_collection" element={<PrivateRoute />}>
+          <Route path="/new_collection" element={<AddCollection />} />
+        </Route>
+        <Route path="/search-result/:tagName" element={<SearchResult />} />
       </Routes>
     </div>
   );

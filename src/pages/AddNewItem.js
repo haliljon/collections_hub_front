@@ -2,8 +2,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { addNewItem } from "../store/items";
+import { addNewTag } from "../store/tags";
+import { useDarkMode } from "../components/DarkModeContext";
 
 const AddItem = () => {
+    const { isDarkMode } = useDarkMode()
     const { id } = useParams();
     const dispatch = useDispatch()
     const navigate = useNavigate();
@@ -22,10 +25,8 @@ const AddItem = () => {
     const current_user_id = parseInt(localStorage.getItem('id'));
 
     if (!collection) {
-        return <p>Collection not found</p>; // or handle the error in your preferred way
+        return <p>Collection not found</p>;
     }
-
-    // State to store values of dynamic custom_ inputs
 
     const createInputField = (attribute, type) => (
         <div className="form-group" key={attribute}>
@@ -49,7 +50,6 @@ const AddItem = () => {
         setItemName(e.target.value);
     };
 
-    // Function to handle changes in dynamic custom_ inputs
     const handleCustomInputChange = (attribute, value) => {
         setCustomInputs({
             ...customInputs,
@@ -59,18 +59,30 @@ const AddItem = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const newItem = {
-            name: itemName,
-            collection_id: collection.id,
-            tags: tags,
-            ...customInputs,
-        };
-        console.log('newItem', newItem);
-        dispatch(addNewItem(newItem));
-        navigate(`/collection/${collection.id}`, { state: { collection } });
-    }
 
-    //Tags
+        try {
+            // Step 1: Add the new item
+            const newItem = {
+                name: itemName,
+                collection_id: collection.id,
+                ...customInputs,
+            };
+
+            const response = await dispatch(addNewItem(newItem));
+            const newItemId = response.id; // assuming your addNewItem action returns the new item with its id
+
+            // Step 2 and 3: Add new tags
+            const newTags = tags.map(tag => ({ name: tag, item_id: newItemId }));
+            newTags.forEach(newTag => dispatch(addNewTag(newTag)));
+
+            // Navigate after both item and tags are added
+            navigate(`/collection/${collection.id}`, { state: { collection } });
+        } catch (error) {
+            console.error('Error adding new item and tags', error);
+        }
+    };
+
+
     const handleAddTag = () => {
         if (tagInput.trim() !== '') {
             setTags([...tags, tagInput.trim()]);
@@ -83,12 +95,6 @@ const AddItem = () => {
         updatedTags.splice(index, 1);
         setTags(updatedTags);
     };
-
-    const isCreator = (current_user_id === collection.user_id);
-
-    if (!isCreator) {
-        return <p className="m-5 p-5 text-center"> You don't have permission to add items to this collection</p>;
-    }
 
     return (
         <div className="col-md col-sm-12 col-xs-12 container-main d-flex flex-row align-items-center login p-0 mt-5">
@@ -118,7 +124,7 @@ const AddItem = () => {
                                 value={tagInput}
                                 onChange={(e) => setTagInput(e.target.value)}
                             />
-                            <button type="button" className="btn btn-outline-success mt-2 float-end" onClick={handleAddTag}>
+                            <button type="button" className={`btn btn${isDarkMode ? '' : '-outline'}-success mt-2 float-end`} onClick={handleAddTag}>
                                 Add Tag
                             </button>
                         </label>
@@ -127,7 +133,7 @@ const AddItem = () => {
                             {tags.map((tag, index) => (
                                 <div key={index}>
                                     {`${tag} `}
-                                    <button type="button" className="btn btn-outline-success  mb-1 btn-sm" onClick={() => handleRemoveTag(index)}>
+                                    <button type="button" className={`btn btn-${isDarkMode ? '' : 'outline-'}success  mb-1 btn-sm`} onClick={() => handleRemoveTag(index)}>
                                         Remove
                                     </button>
                                 </div>

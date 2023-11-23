@@ -15,3 +15,123 @@ code {
 body {
   background-color: rgb(190, 211, 220);
 }
+
+.dark-theme {
+  background-color: rgb(70, 155, 191);
+}
+.search-container {
+  position: relative;
+}
+
+.search-results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1;
+  max-height: 200px; /* Adjust this value as needed */
+  overflow-y: auto;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  width: 82.5%;
+}
+
+.search-results ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.search-results li {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.search-results li:hover {
+  background-color: #f0f0f0;
+}
+
+/* toggle dark button */
+.toggle-switch .button.r,
+.toggle-switch .button.r .layer {
+  border-radius: 100px;
+}
+.toggle-switch .button {
+  position: relative;
+  top: 50%;
+  width: 74px;
+  height: 30px;
+  overflow: hidden;
+}
+.toggle-switch input[type='checkbox'] {
+  height: 100%;
+  width: 100%;
+  visibility: visible;
+}
+.toggle-switch .checkbox {
+  position: relative;
+  padding: 0px;
+  margin: 0px;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 3;
+  width: 100% !important;
+  height: 100% !important;
+}
+[type='checkbox'] {
+  box-sizing: border-box;
+  padding: 0;
+}
+button,
+input {
+  overflow: visible;
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+}
+
+.toggle-switch #button-1 .knobs,
+.toggle-switch #button-1 .knobs::before,
+.toggle-switch #button-1 .layer {
+  transition: all 0.2s ease 0s;
+}
+.toggle-switch .knobs {
+  z-index: 2;
+}
+.toggle-switch .button-cover,
+.toggle-switch .knobs,
+.toggle-switch .layer {
+  position: absolute;
+  inset: 0px;
+}
+.toggle-switch #button-1 .knobs::before {
+  content: 'DARK';
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 40px;
+  height: 5px;
+  color: rgb(255, 255, 255);
+  font-size: 8px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 0.3;
+  padding: 12px 5px;
+  background-color: rgb(7, 128, 46);
+  border-radius: 30px;
+  transition: all 0.2s cubic-bezier(0.18, 0.89, 0.35, 1.15) 0s;
+}
+.toggle-switch #button-1 .checkbox:checked + .knobs::before {
+  content: 'LIGHT';
+  left: 32px;
+  background-color: rgb(24, 170, 70);
+}
+.toggle-switch .layer {
+  width: 100%;
+  transition: all 0.2s ease 0s;
+  z-index: 1;
+  background-color: rgb(190, 211, 220);
+}

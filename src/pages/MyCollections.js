@@ -1,9 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import CollectionBox from "../components/CollectionBox";
+import { useDarkMode } from "../components/DarkModeContext";
 
 
 const MyCollections = () => {
+    const { isDarkMode } = useDarkMode()
     const dispatch = useDispatch()
     const collections = useSelector(state => state.collections.collections);
     const current_user_id = localStorage.getItem("id")
@@ -20,7 +22,7 @@ const MyCollections = () => {
                 <CollectionBox collection={collection} key={collection.id} />)
             )}
             <div class="col-9">
-                <Link to={`/new_collection`} className="btn btn-outline-success m-3 float-end">Add new collection</Link>
+                <Link to={`/new_collection`} className={`btn btn${isDarkMode ? '' : '-outline'}-success m-3 float-end`}>Add new collection</Link>
             </div>
         </div>
     );

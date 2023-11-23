@@ -1,15 +1,18 @@
 import { Link, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ItemCard from '../components/ItemCard';
+import { useDarkMode } from '../components/DarkModeContext';
 
 const EachCollection = () => {
+    const { isDarkMode } = useDarkMode()
     const { id } = useParams();
     const numId = parseInt(id)
     const collections = useSelector(state => state.collections.collections);
     const allItems = useSelector(state => state.items.items);
     const loadingItems = useSelector(state => state.items.loading);
     const errorItems = useSelector(state => state.items.error);
-
+    const tags = allItems.map((item) => item.tags)
+    console.log('tags', tags);
     const current_user_id = parseInt(localStorage.getItem('id'));
     const items = allItems.filter(item => item.collection_id == numId);
     const collection = collections.find(collection => collection.id == numId);
@@ -27,7 +30,7 @@ const EachCollection = () => {
                     ))}
                     <div className="col-10">
                         {current_user_id === collection.user_id && (
-                            <Link to={`/collection/${collection.id}/new_item`} className="btn btn-outline-success float-end">Add new item</Link>
+                            <Link to={`/collection/${collection.id}/new_item`} className={`btn btn${isDarkMode ? '' : '-outline'}-success float-end`}>Add new item</Link>
                         )}
                     </div>
                 </>
