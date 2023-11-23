@@ -135,3 +135,11 @@ input {
   z-index: 1;
   background-color: rgb(190, 211, 220);
 }
+
+.toggle-switch #button-1 .knobs.language::before {
+  content: 'RU';
+}
+.toggle-switch #button-1 .checkbox:checked + .knobs.knobs.language::before {
+  content: 'EN';
+  background-color: rgb(7, 128, 46);
+}

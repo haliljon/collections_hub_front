@@ -13,8 +13,8 @@ const SearchResult = () => {
     const filteredItems = allItems.filter(item => itemIds.includes(item.id));
 
     return (
-        <div>
-            <h1 className="text-center mt-5 p-4">Search results for {tagName}</h1>
+        <div className="mt-5 p-5 container">
+            <h1 className="text-center p-3">Search results for {tagName}</h1>
             {filteredItems.map((item) => (
                 <SearchResultCard item={item} key={item.id} />
             ))

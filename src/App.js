@@ -2,7 +2,6 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Home from "./pages/Home";
-import Navbar from "./components/Navbar";
 import Login from "./components/auth/Login";
 import Registration from "./components/auth/Registration";
 import AllUsers from "./pages/AllUsers";
@@ -20,6 +19,7 @@ import AdminRoute from "./AdminRoute";
 import PrivateRoute from "./PrivateRoute";
 import { fetchTags } from "./store/tags";
 import SearchResult from "./pages/SearchResult";
+import NavBar from "./components/NavBar";
 
 function App() {
   const dispatch = useDispatch()
@@ -72,7 +72,7 @@ function App() {
   }
   return (
     <div>
-      <Navbar handleLogout={handleLogout} />
+      <NavBar handleLogout={handleLogout} />
       <Routes>
         <Route path="/" element={<Home handleLogin={handleLogin} />} />
         <Route path="/signin" element={<Login handleSuccessfulAuth={handleSuccessfulAuth} />} />

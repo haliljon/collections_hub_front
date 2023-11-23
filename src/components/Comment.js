@@ -4,9 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteComment } from "../store/comments";
 import isAdmin from "./auth/isAdmin";
 import { useDarkMode } from "./DarkModeContext";
+import { useLanguageRussian } from "./LanguageRussianContext";
 
 const Comment = ({ comment }) => {
     const { isDarkMode } = useDarkMode()
+    const isRussian = useLanguageRussian().isRussian
     const dispatch = useDispatch();
     const users = useSelector(state => state.users.users);
     const user = users.find(user => user.id == comment.user_id);
@@ -42,7 +44,7 @@ const Comment = ({ comment }) => {
                 </div>
                 {(user.id === current_user_id || isAdmin()) &&
                     <button type='button' class={`btn btn-${isDarkMode ? '' : 'outline-'}success align-items-center`} onClick={handleDeleteComment} style={{ height: '40px' }}>
-                        <p class="m-0"><RiChatDeleteFill size={20} /> Delete</p>
+                        <p class="m-0"><RiChatDeleteFill size={20} /> {isRussian ? 'Удалить' : 'Delete'}</p>
                     </button>}
 
             </div>

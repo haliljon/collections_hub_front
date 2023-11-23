@@ -5,9 +5,11 @@ import { RiAdminFill } from "react-icons/ri";
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUsers } from '../store/users';
 import { useDarkMode } from '../components/DarkModeContext';
+import { useLanguageRussian } from '../components/LanguageRussianContext';
 
 const AllUsers = () => {
     const { isDarkMode } = useDarkMode()
+    const isRussian = useLanguageRussian().isRussian
     const dispatch = useDispatch()
     const users = useSelector(state => state.users.users)
     const [selectedUsers, setSelectedUsers] = useState([]);
@@ -158,66 +160,68 @@ const AllUsers = () => {
                 <button type="button" className={`btn btn-${isDarkMode ? 'dark' : 'success'}`} onClick={handleBlock}>
                     <FaLock />
                     {' '}
-                    Block
+                    {isRussian ? 'Блокировать' : 'Block'}
                 </button>
                 <button type="button" className={`btn btn-${isDarkMode ? 'dark' : 'success'}`} onClick={handleUnblock}>
                     <FaUnlock />
                     {' '}
-                    Unblock
+                    {isRussian ? 'Разблокировать' : 'Unblock'}
                 </button>
                 <button type="button" className={`btn btn-${isDarkMode ? 'dark' : 'success'}`} onClick={handleDelete}>
                     <FaTrash />
                     {' '}
-                    Delete
+                    {isRussian ? 'Удалить' : 'Delete'}
                 </button>
                 <button type="button" className={`btn btn-${isDarkMode ? 'dark' : 'success'}`} onClick={handleMakeAdmin} >
                     <RiAdminFill />
                     {' '}
-                    Make admin
+                    {isRussian ? 'Сделать админ' : 'Make admin'}
                 </button>
                 <button type="button" className={`btn btn-${isDarkMode ? 'dark' : 'success'}`} onClick={handleMakeUser} >
                     <FaUser />
                     {' '}
-                    Make user
+                    {isRussian ? 'Сделать пользователя' : 'Make user'}
                 </button>
             </div>
             <br />
-            <table className={`table table-${isDarkMode ? 'dark' : 'striped'} table-hover container`}>
-                <thead>
-                    <tr>
-                        <th>Select</th>
-                        <th>Name</th>
-                        <th>Role</th>
-                        <th>Email</th>
-                        <th>Last Login</th>
-                        <th>Registration Time</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    ≈
-                    {users.map((user) => (
-
-                        <tr key={user.id}>
-                            <td>
-                                {/* eslint-disable */}
-                                <input
-                                    type="checkbox"
-                                    checked={selectedUsers.includes(user.id)}
-                                    onChange={() => handleCheckboxChange(user.id)}
-                                />
-                                {/* eslint-disable */}
-                            </td>
-                            <td className={className(user.status)}>{user.username}</td>
-                            <td className={className(user.status)}>{user.role}</td>
-                            <td className={className(user.status)}>{user.email}</td>
-                            <td className={className(user.status)}>{timeFormatter(user.updated_at)}</td>
-                            <td className={className(user.status)}>{timeFormatter(user.created_at)}</td>
-                            <td className={className(user.status)}>{user.status}</td>
+            <div className='table-responsive'>
+                <table className={`table table-${isDarkMode ? 'dark' : 'striped'} table-hover container`}>
+                    <thead>
+                        <tr>
+                            <th>{isRussian ? 'Выбирать' : 'Select'}</th>
+                            <th>{isRussian ? 'Имя' : 'Name'}</th>
+                            <th>{isRussian ? 'Роль' : 'Role'}</th>
+                            <th>{isRussian ? 'Э-почта' : 'Email'}</th>
+                            <th>{isRussian ? 'Последний вход в систему' : 'Last Login'}</th>
+                            <th>{isRussian ? 'Время регистрации' : 'Registration Time'}</th>
+                            <th>{isRussian ? 'Статус' : 'Status'}</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        ≈
+                        {users.map((user) => (
+
+                            <tr key={user.id}>
+                                <td>
+                                    {/* eslint-disable */}
+                                    <input
+                                        type="checkbox"
+                                        checked={selectedUsers.includes(user.id)}
+                                        onChange={() => handleCheckboxChange(user.id)}
+                                    />
+                                    {/* eslint-disable */}
+                                </td>
+                                <td className={className(user.status)}>{user.username}</td>
+                                <td className={className(user.status)}>{user.role}</td>
+                                <td className={className(user.status)}>{user.email}</td>
+                                <td className={className(user.status)}>{timeFormatter(user.updated_at)}</td>
+                                <td className={className(user.status)}>{timeFormatter(user.created_at)}</td>
+                                <td className={className(user.status)}>{user.status}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 };
