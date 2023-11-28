@@ -8,7 +8,7 @@ const MyCollections = () => {
   const { isDarkMode } = useDarkMode();
   const { isRussian } = useLanguageRussian();
   const collections = useSelector((state) => state.collections.collections);
-  const currentUserId = parseInt(localStorage.getItem('id'), 10)
+  const currentUserId = parseInt(localStorage.getItem('id'), 10);
   const myCollections = collections.filter((collection) => collection.user_id === currentUserId);
   const loading = useSelector((state) => state.collections.loading);
   const error = useSelector((state) => state.collections.error);
