@@ -10,7 +10,7 @@ import { useDarkMode } from "./DarkModeContext";
 import RussianToggle from "./RussianToggle";
 import { useLanguageRussian } from "./LanguageRussianContext";
 
-const NavBar = ({ handleLogout }) => {
+const NavigationBar = ({ handleLogout }) => {
     const { isDarkMode } = useDarkMode()
     const isRussian = useLanguageRussian().isRussian
     const isNotLoggedIn = isGuest();
@@ -58,4 +58,4 @@ const NavBar = ({ handleLogout }) => {
         </Navbar >
     )
 }
-export default NavBar;
+export default NavigationBar;

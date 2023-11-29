@@ -19,7 +19,7 @@ import AdminRoute from "./AdminRoute";
 import PrivateRoute from "./PrivateRoute";
 import { fetchTags } from "./store/tags";
 import SearchResult from "./pages/SearchResult";
-import NavBar from "./components/NavBar";
+import NavigationBar from "./components/NavigationBar";
 import { API_BASE_URL } from "./components/api";
 
 function App() {
@@ -73,7 +73,7 @@ function App() {
   }
   return (
     <div>
-      <NavBar handleLogout={handleLogout} />
+      <NavigationBar handleLogout={handleLogout} />
       <Routes>
         <Route path="/" element={<Home handleLogin={handleLogin} />} />
         <Route path="/signin" element={<Login handleSuccessfulAuth={handleSuccessfulAuth} />} />
