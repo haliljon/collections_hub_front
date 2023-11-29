@@ -42,7 +42,8 @@
 
 ### App Screenshot
 
-<img width="1388" alt="Screenshot 2023-11-02 at 1 17 19 AM" src="https://github.com/haliljon/UserControl-Pro/assets/110017001/755c80a8-0a73-4429-b9e2-c59ac5cc878a">
+<img width="1778" alt="Screenshot 2023-11-29 at 12 30 21 PM" src="https://github.com/haliljon/collections_hub_front/assets/110017001/a1911344-b04e-40c7-9134-f63231815b1f">
+
 
 ### Back-end Repository
 
