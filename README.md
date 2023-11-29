@@ -32,11 +32,11 @@
 <details>
   <summary>Client</summary>
   <ul>
-    > <li><a href="https://reactjs.org/">React.js</a></li>
-    > <li><a href="https://www.ruby-lang.org/en/">Ruby</a></li>
-    > <li><a href="https://rubyonrails.org/">Ruby on Rails</a></li>
-    > <li><a href="https://www.postgresql.org/">Postgresql</a></li>
-    > <li><a href="https://getbootstrap.com/">Bootstrap</a></li>
+     <li><a href="https://reactjs.org/">React.js</a></li>
+     <li><a href="https://www.ruby-lang.org/en/">Ruby</a></li>
+     <li><a href="https://rubyonrails.org/">Ruby on Rails</a></li>
+     <li><a href="https://www.postgresql.org/">Postgresql</a></li>
+     <li><a href="https://getbootstrap.com/">Bootstrap</a></li>
   </ul>
 </details>
 
