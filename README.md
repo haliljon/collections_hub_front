@@ -1,70 +1,135 @@
-# Getting Started with Create React App
+<a name="readme-top"></a>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<div align="center">
+  <h1><b>Collections Hub 🧑🏻‍💻</b></h1>
+</div>
 
-## Available Scripts
+# 📗 Table of Contents
+
+- [📗 Table of Contents](#-table-of-contents)
+- [ Collections Hub 🧑🏻‍💻 ](#-Collections-Hub-)
+  - [🛠 Built With ](#-built-with-)
+    - [Tech Stack ](#tech-stack-)
+    - [Key Features ](#key-features-)
+  - [💻 Getting Started ](#-getting-started-)
+    - [Prerequisites](#prerequisites)
+    - [Setup](#setup)
+    - [Install](#install)
+    - [Usage](#usage)
+  - [👤 Author ](#-author-)
+  - [🤝 Contributing](#contributing)
+  - [⭐️ Show your support ](#️-show-your-support-)
+  - [📝 License ](#-license-)
+
+# Collections Hub 🧑🏻‍💻 <a name="about-project"></a>
+
+<b>Collections Hub</b> is a dynamic web app for personal collection management, crafted with JavaScript and React. Users can effortlessly create and delete collections and items, with admins enjoying powerful management capabilities. The intuitive interface includes features such as personalized customizable item fields, and an engaging main page showcasing the latest collections and items inside. The platform promotes user interaction with a linear comment system and like functionality. With multilingual support, thematic options, and adaptable design, <b>Collections Hub</b> offers a seamless and personalized experience for collectors and enthusiasts. Front end is done with React JS and back end is done with RoR.
+
+## 🛠 Built With <a name="built-with"></a>
+
+### Tech Stack <a name="tech-stack"></a>
+
+<details>
+  <summary>Client</summary>
+  <ul>
+    > <li><a href="https://reactjs.org/">React.js</a></li>
+    > <li><a href="https://www.ruby-lang.org/en/">Ruby</a></li>
+    > <li><a href="https://rubyonrails.org/">Ruby on Rails</a></li>
+    > <li><a href="https://www.postgresql.org/">Postgresql</a></li>
+    > <li><a href="https://getbootstrap.com/">Bootstrap</a></li>
+  </ul>
+</details>
+
+### App Screenshot
+
+<img width="1388" alt="Screenshot 2023-11-02 at 1 17 19 AM" src="https://github.com/haliljon/UserControl-Pro/assets/110017001/755c80a8-0a73-4429-b9e2-c59ac5cc878a">
+
+### Back-end Repository
+
+- Here is the link to the [Back-End](https://github.com/haliljon/collections_hub_backend.git)
+
+<!-- GETTING STARTED -->
+
+## 💻 Getting Started <a name="getting-started"></a>
+
+To get a local copy up and running, follow these steps.
+
+### Prerequisites
+
+In order to run this project you need:
+
+- [x] A web browser like Google Chrome.
+- [x] A code editor like Visual Studio Code with Git and Node.js.
+
+You can check if Git is installed by running the following command in the terminal.
+
+```
+$ git --version
+```
+
+Likewise for Node.js and npm for package installation.
+
+```
+$ node --version && npm --version
+```
+
+### Setup
+
+Clone this repository using the GitHub link provided below.
+
+### Install
+
+In the terminal, go to your file directory and run this command.
+
+```
+$ git clone https://github.com/haliljon/collections_hub_front.git
+```
+
+### Usage
+
+Kindly modify the files as needed.
 
 In the project directory, you can run:
 
-### `npm start`
+```
+$ npm start
+```
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+The page will reload when you make changes.
 
-### `npm test`
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+<!-- AUTHORS -->
 
-### `npm run build`
+## 👤 Author <a name="authors"></a>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Haliljon Juraboev**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- GitHub: [@githubhaliljon](https://github.com/haliljon)
+- Twitter: [@twitterhaliljon1](https://twitter.com/haliljon1)
+- LinkedIn: [LinkedIn](https://www.linkedin.com/in/juraboev-haliljon)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### `npm run eject`
+## 🤝 Contributing <a name="contributing"></a>
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Contributions, issues, and feature requests are welcome!
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Feel free to check the [issues page](https://github.com/haliljon/collections_hub_front/issues).
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## ⭐️ Show your support <a name="support"></a>
 
-## Learn More
+Give a ⭐️ if you like this project!
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 📝 License <a name="license"></a>
 
-### Code Splitting
+This project is [MIT](./LICENSE) licensed.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
