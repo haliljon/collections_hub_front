@@ -11,11 +11,11 @@ import isAuthenticated from './auth/auth';
 import { deleteItem } from '../store/items';
 import isAdmin from './auth/isAdmin';
 import { useDarkMode } from './DarkModeContext';
-import { useLanguageRussian } from './LanguageRussianContext';
+import { useTranslation } from 'react-i18next'
 
 const ItemCard = ({ item, collection }) => {
     const { isDarkMode } = useDarkMode()
-    const isRussian = useLanguageRussian().isRussian
+    const { t } = useTranslation()
     const dispatch = useDispatch();
     const users = useSelector(state => state.users.users);
     const user = users.find(user => user.id == collection.user_id);
@@ -127,7 +127,7 @@ const ItemCard = ({ item, collection }) => {
                                                 <>
                                                     <h6 className={`fw-bold text-${isDarkMode ? 'white' : 'success'} mb-1`}>{user.username}</h6>
                                                     <p className={`text-${isDarkMode ? 'white' : 'muted'} small mb-0`}>
-                                                        {isRussian ? 'Опубликовано публично' : 'Shared publicly'} - {formatDate(item.created_at)}
+                                                        {t('Shared publicly')} - {formatDate(item.created_at)}
                                                     </p>
                                                 </>
                                             )}
@@ -139,7 +139,7 @@ const ItemCard = ({ item, collection }) => {
                                         <h5 class={`card-title text-${isDarkMode ? 'white' : ''}`}>{item.name}</h5>
                                     </div>
                                     <ul class="list-group list-group-flush">
-                                        <li class={`list-group-item ${isDarkMode ? 'bg-dark text-white' : ''}`} >{isRussian ? 'Название коллекции' : 'Collection Name'} | {collection.name}</li>
+                                        <li class={`list-group-item ${isDarkMode ? 'bg-dark text-white' : ''}`} >{t('Collection Name')} | {collection.name}</li>
                                         {renderCustomKeyValuePairs(collection, item)}
                                     </ul>
                                     {likesCount > 0 && <p className={`text-${isDarkMode ? 'white' : 'muted'} `}>{likesCount === 1 ? '1 like' : `${likesCount} likes`}</p>}
@@ -150,11 +150,11 @@ const ItemCard = ({ item, collection }) => {
                                         </button>
                                         <button type='button' disabled={!logged_in} onClick={handleToggle} class={`btn btn-${isDarkMode ? '' : 'outline-'}success  d-flex align-items-center me-3`}>
                                             <FaCommentDots size={20} />
-                                            <p class="mb-0 ms-2">{isRussian ? 'Комментарий' : 'Comment'}</p>
+                                            <p class="mb-0 ms-2">{t('Comment')}</p>
                                         </button>
                                         {(currentUserId === user.id || isAdmin()) && <button type='button' onClick={handleDeleteItem} class={`btn btn-${isDarkMode ? '' : 'outline-'}success  d-flex align-items-center me-3`}>
                                             <RiDeleteBin5Fill size={20} />
-                                            <p class="mb-0 ms-2">{isRussian ? 'Удалить' : 'Delete'}</p>
+                                            <p class="mb-0 ms-2">{t('Delete')}</p>
                                         </button>}
 
                                     </div>
@@ -164,14 +164,14 @@ const ItemCard = ({ item, collection }) => {
                                     <div class="d-flex flex-start w-100">
                                         <FaUserCircle size={30} className={`${isDarkMode ? 'text-white' : ''}`} />
                                         <div class="form-outline w-100 ms-2">
-                                            <textarea class={`form-control ${isDarkMode ? 'bg-dark' : ''}`} placeholder={isRussian ? '' : 'Enter your comment'} id="textAreaExample" rows="4" value={commentText} onChange={(e) => setCommentText(e.target.value)}
+                                            <textarea class={`form-control ${isDarkMode ? 'bg-dark' : ''}`} placeholder={t('Enter your comment')} id="textAreaExample" rows="4" value={commentText} onChange={(e) => setCommentText(e.target.value)}
                                                 style={{ background: '#fff' }}></textarea>
-                                            <label class={`form-label ${isDarkMode ? 'text-white' : ''}`} for="textAreaExample">{isRussian ? 'Сообщение' : 'Message'}</label>
+                                            <label class={`form-label ${isDarkMode ? 'text-white' : ''}`} for="textAreaExample">{t('Message')}</label>
                                         </div>
                                     </div>
                                     <div class="float-end mt-2 pt-1">
-                                        <button type="button" class="btn btn-success btn-sm me-2" onClick={handlePostComment}>{isRussian ? 'Оставить комментарий' : 'Post comment'}</button>
-                                        <button type="button" class={`btn btn-${isDarkMode ? '' : 'outline-'}success btn-sm`}>{isRussian ? 'Отменить' : 'Cancel'}</button>
+                                        <button type="button" class="btn btn-success btn-sm me-2" onClick={handlePostComment}>{t('Post comment')}</button>
+                                        <button type="button" class={`btn btn-${isDarkMode ? '' : 'outline-'}success btn-sm`}>{t('Cancel')}</button>
                                     </div>
                                 </div>}
                             </div>

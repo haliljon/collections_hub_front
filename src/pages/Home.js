@@ -1,9 +1,9 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import CollectionBox from "../components/CollectionBox";
-import { useLanguageRussian } from "../components/LanguageRussianContext";
+import { useTranslation } from "react-i18next";
 
 const Home = () => {
-    const isRussian = useLanguageRussian().isRussian
+    const { t } = useTranslation();
     const collections = useSelector(state => state.collections.collections);
     const newCollection = collections.slice().reverse()
     const loading = useSelector(state => state.collections.loading);
@@ -13,7 +13,7 @@ const Home = () => {
 
     return (
         <div>
-            <h1 className="text-center mt-5 p-4">{`${isRussian ? 'Список всех коллекций' : 'Listing of all collections'}`}</h1>
+            <h1 className="text-center mt-5 p-4">{t('Listing of all collections')}</h1>
             {newCollection.map((collection) => (
                 <CollectionBox collection={collection} key={collection.id} />)
             )}

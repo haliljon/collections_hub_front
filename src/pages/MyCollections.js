@@ -1,13 +1,13 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import CollectionBox from "../components/CollectionBox";
 import { useDarkMode } from "../components/DarkModeContext";
-import { useLanguageRussian } from "../components/LanguageRussianContext";
+import { useTranslation } from "react-i18next";
 
 
 const MyCollections = () => {
     const { isDarkMode } = useDarkMode()
-    const isRussian = useLanguageRussian().isRussian
+    const { t } = useTranslation();
     const collections = useSelector(state => state.collections.collections);
     const current_user_id = localStorage.getItem("id")
     const myCollections = collections.filter(collection => collection.user_id == current_user_id)
@@ -18,12 +18,12 @@ const MyCollections = () => {
 
     return (
         <div>
-            <h1 className="text-center mt-5 p-4">{isRussian ? 'Список всех моих коллекций' : 'Listing of all my collections'}</h1>
+            <h1 className="text-center mt-5 p-4">{t('Listing of all my collections')}</h1>
             {myCollections.map((collection) => (
                 <CollectionBox collection={collection} key={collection.id} />)
             )}
             <div class="col-9">
-                <Link to={`/new_collection`} className={`btn btn${isDarkMode ? '' : '-outline'}-success m-3 float-end`}>{isRussian ? 'Добавить новую коллекцию' : 'Add new collection'}</Link>
+                <Link to={`/new_collection`} className={`btn btn${isDarkMode ? '' : '-outline'}-success m-3 float-end`}>{t('Add new collection')}</Link>
             </div>
         </div>
     );

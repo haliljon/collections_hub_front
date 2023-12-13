@@ -5,12 +5,12 @@ import { RiAdminFill } from "react-icons/ri";
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUsers } from '../store/users';
 import { useDarkMode } from '../components/DarkModeContext';
-import { useLanguageRussian } from '../components/LanguageRussianContext';
+import { useTranslation } from 'react-i18next'
 import { API_ENDPOINTS } from '../components/api';
 
 const AllUsers = () => {
     const { isDarkMode } = useDarkMode()
-    const isRussian = useLanguageRussian().isRussian
+    const { t } = useTranslation()
     const dispatch = useDispatch()
     const users = useSelector(state => state.users.users)
     const [selectedUsers, setSelectedUsers] = useState([]);
@@ -161,27 +161,27 @@ const AllUsers = () => {
                 <button type="button" className={`btn btn-${isDarkMode ? 'dark' : 'success'}`} onClick={handleBlock}>
                     <FaLock />
                     {' '}
-                    {isRussian ? 'Блокировать' : 'Block'}
+                    {t('Block')}
                 </button>
                 <button type="button" className={`btn btn-${isDarkMode ? 'dark' : 'success'}`} onClick={handleUnblock}>
                     <FaUnlock />
                     {' '}
-                    {isRussian ? 'Разблокировать' : 'Unblock'}
+                    {t('Unblock')}
                 </button>
                 <button type="button" className={`btn btn-${isDarkMode ? 'dark' : 'success'}`} onClick={handleDelete}>
                     <FaTrash />
                     {' '}
-                    {isRussian ? 'Удалить' : 'Delete'}
+                    {t('Delete')}
                 </button>
                 <button type="button" className={`btn btn-${isDarkMode ? 'dark' : 'success'}`} onClick={handleMakeAdmin} >
                     <RiAdminFill />
                     {' '}
-                    {isRussian ? 'Сделать админ' : 'Make admin'}
+                    {t('Make admin')}
                 </button>
                 <button type="button" className={`btn btn-${isDarkMode ? 'dark' : 'success'}`} onClick={handleMakeUser} >
                     <FaUser />
                     {' '}
-                    {isRussian ? 'Сделать пользователя' : 'Make user'}
+                    {t('Make user')}
                 </button>
             </div>
             <br />
@@ -189,13 +189,13 @@ const AllUsers = () => {
                 <table className={`table table-${isDarkMode ? 'dark' : 'striped'} table-hover container`}>
                     <thead>
                         <tr>
-                            <th>{isRussian ? 'Выбирать' : 'Select'}</th>
-                            <th>{isRussian ? 'Имя' : 'Name'}</th>
-                            <th>{isRussian ? 'Роль' : 'Role'}</th>
-                            <th>{isRussian ? 'Э-почта' : 'Email'}</th>
-                            <th>{isRussian ? 'Последний вход в систему' : 'Last Login'}</th>
-                            <th>{isRussian ? 'Время регистрации' : 'Registration Time'}</th>
-                            <th>{isRussian ? 'Статус' : 'Status'}</th>
+                            <th>{t('Select')}</th>
+                            <th>{t('Name')}</th>
+                            <th>{t('Role')}</th>
+                            <th>{t('Email')}</th>
+                            <th>{t('Last Login')}</th>
+                            <th>{t('Registration Time')}</th>
+                            <th>{t('Status')}</th>
                         </tr>
                     </thead>
                     <tbody>

@@ -2,11 +2,11 @@ import { Link, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ItemCard from '../components/ItemCard';
 import { useDarkMode } from '../components/DarkModeContext';
-import { useLanguageRussian } from '../components/LanguageRussianContext';
+import { useTranslation } from 'react-i18next';
 
 const EachCollection = () => {
     const { isDarkMode } = useDarkMode()
-    const { isRussian } = useLanguageRussian()
+    const { t } = useTranslation();
     const { id } = useParams();
     const numId = parseInt(id)
     const collections = useSelector(state => state.collections.collections);
@@ -24,18 +24,18 @@ const EachCollection = () => {
         <div className="mt-5 p-5 container">
             {collection ? (
                 <>
-                    <h1 className="text-center p-3">{collection.name} {isRussian ? 'коллекция' : 'collection'}</h1>
+                    <h1 className="text-center p-3">{collection.name} {t('collection')}</h1>
                     {items.map((item) => (
                         <ItemCard item={item} key={item.id} collection={collection} />
                     ))}
                     <div className="col-10">
                         {current_user_id === collection.user_id && (
-                            <Link to={`/collection/${collection.id}/new_item`} className={`btn btn${isDarkMode ? '' : '-outline'}-success float-end`}>{isRussian ? 'Добавить новый элемент' : 'Add new item'}</Link>
+                            <Link to={`/collection/${collection.id}/new_item`} className={`btn btn${isDarkMode ? '' : '-outline'}-success float-end`}>{t('Add new item')}</Link>
                         )}
                     </div>
                 </>
             ) : (
-                <p>Collection not found</p>
+                <p>{t('Collection not found')}</p>
             )}
         </div>
     );
