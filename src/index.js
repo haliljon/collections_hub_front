@@ -20,5 +20,4 @@ root.render(
       </LanguaugeRussianProvider>
     </DarkModeProvider>
   </BrowserRouter>,
-
 );
