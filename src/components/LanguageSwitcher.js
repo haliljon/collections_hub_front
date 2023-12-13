@@ -23,6 +23,7 @@ const LanguageSwitcher = () => {
                 <Dropdown.Item onClick={() => changeLanguage('de')}>Deutsch</Dropdown.Item>
                 <Dropdown.Item onClick={() => changeLanguage('ua')}>Українська</Dropdown.Item>
                 <Dropdown.Item onClick={() => changeLanguage('pt')}>Português</Dropdown.Item>
+                <Dropdown.Item onClick={() => changeLanguage('uz')}>O'zbekcha</Dropdown.Item>
             </Dropdown.Menu>
         </Dropdown>
     );

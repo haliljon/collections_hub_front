@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import { initReactI18next } from 'react-i18next';
 import i18n from 'i18next';
 import { DarkModeProvider } from './components/DarkModeContext';
-import { LanguaugeRussianProvider } from './components/LanguageRussianContext';
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 import App from './App';
@@ -17,6 +16,7 @@ import esTranslations from './languages/es.json';
 import deTranslations from './languages/de.json';
 import uaTranslations from './languages/ua.json';
 import ptTranslations from './languages/pt.json';
+import uzTranslations from './languages/uz.json';
 
 const persistedLanguage = localStorage.getItem('language');
 
@@ -44,6 +44,9 @@ i18n
       },
       pt: {
         translation: ptTranslations,
+      },
+      uz: {
+        translation: uzTranslations,
       }
     },
     lng: persistedLanguage || 'en', // Use persisted language or default to 'en'
@@ -62,11 +65,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
     <DarkModeProvider>
-      <LanguaugeRussianProvider>
-        <Provider store={store}>
-          <App />
-        </Provider>
-      </LanguaugeRussianProvider>
+      <Provider store={store}>
+        <App />
+      </Provider>
     </DarkModeProvider>
   </BrowserRouter>,
 );
